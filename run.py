@@ -146,7 +146,7 @@ def login_kamu():
                 cok = input(f'{C}[•] Masukan Cookie :{C}')
                 kuki = open('.kukis.log', 'w').write(cok)
                 user = open('.username', 'w').write(us)
-                os.system('python ig1.py')
+                os.system('python run.py')
             elif loginpil == '2':
                 login()
         ex, user = cekAPI(kuki)
@@ -241,9 +241,9 @@ class instagram:
         if x in ('y', 'Y'):
             os.remove('.kukis.log')
             os.remove('.username')
-            os.system('python ig2.py')
+            os.system('python run.py')
         elif x in ('t', 'T'):
-            os.system('python ig2.py')
+            os.system('python run.py')
         else:
             self.Exit()
 
@@ -258,7 +258,7 @@ class instagram:
     def unfollowAPI(self, user_id, username_id, cookie):
         uuid = generateUUID(True)
         xx = self.s.get("https://www.instagram.com/",
-                        headers={"user-agent": uaku}).content
+                        headers={"user-agent": uaa}).content
         crf_token = re.findall(
             '{"config":{"csrf_token":"(.*)","viewer"', str(xx))[0]
         s.headers.update({'Connection': 'close',
@@ -266,7 +266,7 @@ class instagram:
                           'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
                           'Cookie2': '$Version=1',
                           'Accept-Language': 'en-US',
-                          'User-Agent': uaku()})
+                          'User-Agent': uaa()})
 
         data = json.dumps({'_uuid': uuid,
                            '_uid': username_id,
@@ -450,7 +450,7 @@ class instagram:
                 j = random.randrange(4200, 4900)
                 k = random.randrange(40, 150)
                 l = 'Mobile Safari/537.36'
-                uaku = f'{aa} {b}; {c}{d}{e}{f}) {g}{h}.{i}.{j}.{k} {l}'
+                uaa = f'{aa} {b}; {c}{d}{e}{f}) {g}{h}.{i}.{j}.{k} {l}'
                 token = s.get(
                     'https://www.instagram.com/accounts/login/?next=/accounts/logout/')
                 headers = {
@@ -464,7 +464,7 @@ class instagram:
                     'accept': '*/*',
                     'x-requested-with': 'XMLHttpRequest',
                     'x-asbd-id': '198387',
-                    'user-agent': uaku,
+                    'user-agent': uaa,
                     'sec-ch-ua-platform': '"Android"',
                     'x-csrftoken': token.cookies['csrftoken'],
                     'origin': 'https://www.instagram.com',
@@ -551,9 +551,9 @@ class instagram:
             j = random.randrange(4200, 4900)
             k = random.randrange(40, 150)
             l = 'Mobile Safari/537.36'
-            uaku = f'{aa} {b}; {c}{d}{e}{f}) {g}{h}.{i}.{j}.{k} {l}'
+            uaa = f'{aa} {b}; {c}{d}{e}{f}) {g}{h}.{i}.{j}.{k} {l}'
             token = s.get("https://www.instagram.com/",
-                          headers={"user-agent": uaku}).content
+                          headers={"user-agent": uaa}).content
             crf_token = re.findall(r"\"csrf_token\"\:\"(.*?)\"", str(token))[0]
             s.headers.update({
                 'authority': 'www.instagram.com',
@@ -561,7 +561,7 @@ class instagram:
                 'x-instagram-ajax': '82a581bb9399',
                 'content-type': 'application/x-www-form-urlencoded',
                 'accept': '*/*',
-                'user-agent': uaku,
+                'user-agent': uaa,
                 'x-requested-with': 'XMLHttpRequest',
                 'x-csrftoken': crf_token,
                 'x-ig-app-id': '936619743392459',
