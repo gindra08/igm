@@ -146,7 +146,7 @@ def login_kamu():
                 cok = input(f'{C}[•] Masukan Cookie :{C}')
                 kuki = open('.kukis.log', 'w').write(cok)
                 user = open('.username', 'w').write(us)
-                os.system('python run.py')
+                os.system('python ig1.py')
             elif loginpil == '2':
                 login()
         ex, user = cekAPI(kuki)
@@ -175,7 +175,7 @@ def login():
         open('.kukis.log', 'a').write(x.get('cookie'))
         cookie = {'cookie': x.get('cookie')}
         print(f'\n{H}>{C} Login berhasil')
-        os.system('python run.py')
+        os.system('python ig.py')
     elif x.get('status') == 'checkpoint':
         wel = '# Login checkpoint'
         wel2 = mark(wel, style='red')
@@ -241,9 +241,9 @@ class instagram:
         if x in ('y', 'Y'):
             os.remove('.kukis.log')
             os.remove('.username')
-            os.system('python run.py')
+            os.system('python ig2.py')
         elif x in ('t', 'T'):
-            os.system('python run.py')
+            os.system('python ig2.py')
         else:
             self.Exit()
 
