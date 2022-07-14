@@ -104,7 +104,7 @@ except:
 
 
 def cekAPI(cookie):
-    user = open('.username', 'r').read()
+    user = open('username', 'r').read()
     try:
         c = s.get("https://www.instagram.com/%s/?__a=1" % (user),
                   cookies={'cookie': cookie}, headers={"user-agent": USN})
@@ -119,7 +119,7 @@ def cekAPI(cookie):
         sol().print(wel2)
         time.sleep(4)
         os.remove('.kukis.log')
-        os.remove('.username')
+        os.remove('username')
         exit()
 
     return external, user
@@ -145,7 +145,7 @@ def login_kamu():
                 us = input(f'{C}[•] Masukan Username :{C}')
                 cok = input(f'{C}[•] Masukan Cookie :{C}')
                 kuki = open('.kukis.log', 'w').write(cok)
-                user = open('.username', 'w').write(us)
+                user = open('username', 'w').write(us)
                 os.system('python ig1.py')
             elif loginpil == '2':
                 login()
@@ -171,7 +171,7 @@ def login():
         exit()
     x = instagramAPI(us, pw).loginAPI()
     if x.get('status') == 'success':
-        open('.username', 'a').write(us)
+        open('username', 'a').write(us)
         open('.kukis.log', 'a').write(x.get('cookie'))
         cookie = {'cookie': x.get('cookie')}
         print(f'\n{H}>{C} Login berhasil')
@@ -240,7 +240,7 @@ class instagram:
         x = input(f'\n{C}[•] Jawaban [y/t] : {C}')
         if x in ('y', 'Y'):
             os.remove('.kukis.log')
-            os.remove('.username')
+            os.remove('username')
             os.system('python ig2.py')
         elif x in ('t', 'T'):
             os.system('python ig2.py')
