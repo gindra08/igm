@@ -241,9 +241,9 @@ class instagram:
         if x in ('y', 'Y'):
             os.remove('.kukis.log')
             os.remove('.username')
-            os.system('python run.py')
+            os.system('python ig2.py')
         elif x in ('t', 'T'):
-            os.system('python run.py')
+            os.system('python ig2.py')
         else:
             self.Exit()
 
