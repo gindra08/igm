@@ -22,6 +22,6 @@ git clone https://github.com/gindra08/igm.git
 
 Cara Menjalankan Scripts
 
-cd ighe
+cd igm
 
 python run.py
