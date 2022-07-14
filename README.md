@@ -18,7 +18,7 @@ pip install requests
 
 pip install futures
 
-git clone https://github.com/exploid-nitch/ighe
+git clone [https://github.com/gindra08/igm.git]
 
 Cara Menjalankan Scripts
 
