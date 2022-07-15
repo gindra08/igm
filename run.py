@@ -1,3 +1,7 @@
+import os
+import sys
+import subprocess
+import platform
 try:
     import json
     import uuid
