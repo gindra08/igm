@@ -2,6 +2,8 @@ import os
 import sys
 import subprocess
 import platform
+
+from ghofur1.eje import instagramAPI
 try:
     import json
     import uuid
